@@ -34,7 +34,7 @@ const LoginPage = ({ navigation }) => {
             Esqueceu a senha?
           </ForgotPasswordText>
         </ForgotPassword>
-        <RegisterContainer>
+        <RegisterContainer onPress={() => navigation.navigate('SignUp')}>
           <RegisterText>Cadastrar</RegisterText>
           <Entypo name="log-out" size={16} color="#FB6E3B" />
         </RegisterContainer>
