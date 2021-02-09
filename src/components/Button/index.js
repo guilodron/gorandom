@@ -1,9 +1,9 @@
 import React from 'react'
 import {Container, ButtonText} from './styles'
 
-const Button = ({children}) => {
+const Button = ({children, ...props}) => {
   return (
-    <Container>
+    <Container {...props} >
       <ButtonText>
         {children}
       </ButtonText>
