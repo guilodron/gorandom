@@ -19,6 +19,7 @@ import {
 } from './styles'
 import { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
+import { useRestaurants } from '../../hooks/restaurants';
 
 const NewRestaurantPage = ({navigation}) => {
 
@@ -40,13 +41,19 @@ const NewRestaurantPage = ({navigation}) => {
   }, [register])
 
   const {user} = useAuth();
+  const {addRestaurant} = useRestaurants();
 
 
   const onSubmit = async (data) => {
     try{
-      await firebase.firestore().collection('restaurantes').add({...data, ja_visitou: jaVisitou, categoria, user_id: user.uid})
-      console.log('Restaurante cadastrado!!')
-      navigation.goBack();
+      await addRestaurant({
+        ...data, 
+        ja_visitou: jaVisitou, 
+        categoria, 
+        user_id: user.uid,
+        created_at: Date.now()
+      });
+      navigation.navigate('Home');
     }catch(e){
       console.log(e)
     }

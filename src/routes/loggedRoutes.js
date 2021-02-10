@@ -8,6 +8,7 @@ import {useAuth} from '../hooks/auth';
 import hatIcon from '../../assets/chefHat.png';
 import { FontAwesome } from '@expo/vector-icons';
 import NewRestaurantPage from '../pages/NewRestaurantPage';
+import MyRestaurants from '../pages/MyRestaurants';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,21 @@ const LoggedRoutes = () => {
           }
         }}
         component={NewRestaurantPage}
+      />
+
+      <Stack.Screen 
+        name="MyRestaurants"
+        component={MyRestaurants}
+        options={{
+          title: "Novo Restaurante",
+          headerStyle: {
+            backgroundColor: "#FB6E3B"
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontSize: 20
+          }
+        }}
       />
     </Stack.Navigator>
   )

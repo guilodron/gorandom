@@ -1,5 +1,6 @@
 import { TouchableOpacity, View, Text } from 'react-native'
 import styled from 'styled-components'
+import * as Animatable from 'react-native-animatable';
 
 export const Container = styled(View)`
   flex: 1;
@@ -42,7 +43,7 @@ export const MyRestaurantTitle = styled(Text)`
   margin-bottom: 10px;
 `;
 
-export const RestaurantCard = styled(View)`
+export const RestaurantCard = styled(Animatable.View)`
   width: 100%;
   flex-direction: row;
   align-items: center;

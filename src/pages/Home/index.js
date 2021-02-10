@@ -20,28 +20,18 @@ import dice from '../../../assets/Dice.png';
 import Button from '../../components/Button';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
+import { useRestaurants } from '../../hooks/restaurants';
 
 const Home = ({navigation}) => {
 
   const {SignOut, user} = useAuth();
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurantes, setRestaurantes] = useState([]);
 
-  const loadRestaurants = async () => {
-    const res = await firebase.firestore().collection('restaurantes').where('user_id', '==', user.uid).get()
-    const restaurantes = res.docs.map(doc => {
-      return {
-        id: doc.id,
-        ...doc.data()
-      }
-    }).slice(0, 3);
-    console.log('fffffffffffffffffffffff')
-    console.log(restaurantes);
-    setRestaurants(restaurantes);
-  }
+  const {restaurants} = useRestaurants();
 
   useEffect(() => {
-    loadRestaurants();
-  }, [])
+    setRestaurantes(restaurants.slice(0, 3));
+  }, [restaurants])
 
   return (
     <Container>
@@ -55,14 +45,14 @@ const Home = ({navigation}) => {
       </RandomizeContainer>
       <MyRestaurantListContainer>
         <MyRestaurantTitle>Meus Restaurantes</MyRestaurantTitle>
-        {restaurants && restaurants.map(restaurant => (
-          <RestaurantCard key={restaurant.id}>
+        {restaurantes && restaurantes.map((restaurant, index) => (
+          <RestaurantCard key={restaurant.id} animation='fadeInUp' delay={300 * index} duration={500} >
             <Entypo name="location-pin" size={21} color="#1C5D99" />
             <RestaurantName>{restaurant.name}</RestaurantName>
             <Entypo name="plus" size={21} color="#1C5D99" />
           </RestaurantCard>
         ))}
-        <AllRestaurants>
+        <AllRestaurants onPress={() => navigation.navigate('MyRestaurants')}>
           <AllRestaurantsText>
             Ver todos
           </AllRestaurantsText>

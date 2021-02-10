@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, LogBox, StatusBar } from 'react-native';
 import { AuthProvider } from './src/hooks/auth';
+import { RestaurantProvider } from './src/hooks/restaurants';
 
 import Routes from './src/routes'
 
@@ -12,10 +13,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <StatusBar 
-          backgroundColor="#FB6E3B"
-        />
-        <Routes />
+        <RestaurantProvider>
+          <StatusBar 
+            backgroundColor="#FB6E3B"
+          />
+          <Routes />
+        </RestaurantProvider>
       </AuthProvider>
     </NavigationContainer>
   );
