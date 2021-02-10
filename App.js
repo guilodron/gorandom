@@ -1,14 +1,22 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, LogBox, StatusBar } from 'react-native';
+import { AuthProvider } from './src/hooks/auth';
 
 import Routes from './src/routes'
 
 export default function App() {
+
+  LogBox.ignoreLogs(['Setting a timer'])
+
   return (
     <NavigationContainer>
-      <Routes />
+      <AuthProvider>
+        <StatusBar 
+          backgroundColor="#FB6E3B"
+        />
+        <Routes />
+      </AuthProvider>
     </NavigationContainer>
   );
 }

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import {useForm} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-
 import {Container, SignupImage, SignupText} from './styles';
 
 import SignupBanner from '../../../assets/SignupImage.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { KeyboardAvoidingView, Platform, StatusBar, Text } from 'react-native';
+import { useAuth } from '../../hooks/auth';
 
 const SignupPage = () => {
 
@@ -16,7 +16,8 @@ const SignupPage = () => {
     name: yup.string().required('Nome é obrigatório'),
     email: yup.string().email('Email inválido').required('Email é obrigatório'),
     password: yup.string().required('Senha é obrigatória'),
-    passwordConfirm: yup.string().required('Confirmação de senha é obrigatória')
+    passwordConfirm: yup.string().oneOf([yup.ref('password'), null], "Senhas não conferem")
+    .required('Required')
   })
 
   const {register, setValue, handleSubmit, errors} = useForm({
@@ -30,8 +31,10 @@ const SignupPage = () => {
     register('passwordConfirm');
   }, [register])
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const {SignUp} = useAuth()
+
+  const onSubmit = async (data) => {
+    await SignUp(data)
   }
 
   return (

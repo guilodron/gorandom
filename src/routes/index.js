@@ -1,38 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import LoginPage from '../pages/LoginPage';
-import SignupPage from '../pages/SignupPage';
+import LoggedRoutes from './loggedRoutes';
+import AuthRoutes from './authRoutes';
+import { useAuth } from '../hooks/auth';
 
 const Stack = createStackNavigator();
 
 const Routes = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen 
-        name='Login' 
-        component={LoginPage}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen 
-        name='SignUp'
-        component={SignupPage}
-        options={{
-          title: "Cadastrar",
-          headerStyle: {
-            backgroundColor: '#FB6E3B',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontSize: 20
-          }
-        }}
-      />
 
-    </Stack.Navigator>
-  )
+  const {user} = useAuth()
+
+  return user ? <LoggedRoutes /> : <AuthRoutes />
+  
 }
 
 export default Routes;

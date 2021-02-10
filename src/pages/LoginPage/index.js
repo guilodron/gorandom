@@ -21,6 +21,8 @@ import {
   RegisterText 
 } from './styles';
 import Button from '../../components/Button';
+import {firebase} from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 const LoginPage = ({ navigation }) => {
 
@@ -38,8 +40,10 @@ const LoginPage = ({ navigation }) => {
     register('password');
   }, [register]);
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const {SignIn} = useAuth();
+
+  const onSubmit = async (data) => {
+    await SignIn(data);
   }
 
   return (
